@@ -256,18 +256,20 @@ const CharacterForm = () => {
         </button>
       </div>
 
-      {pdfUrl && (
-        <div className="bg-gray-100 rounded shadow-md p-4">
-          <h3 className="text-lg font-semibold mb-2">Vista previa del PDF</h3>
-          <iframe
-            src={pdfUrl}
-            title="Vista previa PDF"
-            width="100%"
-            height="600px"
-            className="border rounded"
-          />
-        </div>
-      )}
+{pdfUrl && (
+  <div className="bg-gray-100 rounded shadow-md p-4 max-w-screen-md mx-auto">
+    <h3 className="text-lg font-semibold mb-2 text-center">Vista previa del PDF</h3>
+    <div className="w-full" style={{ aspectRatio: '3 / 4', minHeight: '400px' }}>
+      <iframe
+        src={pdfUrl}
+        title="Vista previa PDF"
+        className="w-full h-full border rounded"
+        style={{ minHeight: '400px' }}
+      />
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
