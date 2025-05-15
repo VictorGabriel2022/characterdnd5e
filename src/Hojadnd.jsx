@@ -57,7 +57,7 @@ const CharacterForm = () => {
   };
 
   const savePdf = async () => {
-    const existingPdfBytes = await fetch("/public/5E_CharacterSheet_Fillable.pdf").then((res) =>
+    const existingPdfBytes = await fetch("/5E_CharacterSheet_Fillable.pdf").then((res) =>
       res.arrayBuffer()
     );
 
