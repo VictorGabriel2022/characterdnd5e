@@ -1,5 +1,47 @@
 import { useState } from "react";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+const drawMultilineText = (text, x, y, options) => {
+  const {
+    page,
+    font,
+    fontSize,
+    maxWidth,
+    lineHeight = fontSize + 2,
+    color = rgb(0, 0, 0),
+  } = options;
+
+  if (!text) return;
+
+  const paragraphs = text.split('\n'); // divide por saltos de línea manuales
+  let offsetY = y;
+
+  for (const para of paragraphs) {
+    const words = para.split(' ');
+    let line = '';
+
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' ';
+      const width = font.widthOfTextAtSize(testLine, fontSize);
+
+      if (width > maxWidth && i > 0) {
+        page.drawText(line.trim(), { x, y: offsetY, size: fontSize, font, color });
+        line = words[i] + ' ';
+        offsetY -= lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+
+    // última línea del párrafo
+    if (line.trim()) {
+      page.drawText(line.trim(), { x, y: offsetY, size: fontSize, font, color });
+      offsetY -= lineHeight;
+    } else {
+      // si era un salto de línea vacío
+      offsetY -= lineHeight;
+    }
+  }
+};
 
 const getModifier = (score) => {
   const parsed = parseInt(score);
@@ -22,7 +64,6 @@ const CharacterForm = () => {
     alignment: "",
     background: "",
     playerName: "",
-    experience: "",
     level: "",
     str: "",
     dex: "",
@@ -33,6 +74,10 @@ const CharacterForm = () => {
     ac: "",
     hp: "",
     initiative: "",
+    personalityTraits: "",
+    ideals: "",
+    bonds: "",
+    flaws: "",
   });
 
   const [proficiencies, setProficiencies] = useState({
@@ -84,12 +129,47 @@ const CharacterForm = () => {
     page.drawText(form.alignment, { x: 380, y: 704, size: fontSize, font, color: rgb(0, 0, 0) });
     page.drawText(form.background, { x: 380, y: 730, size: fontSize, font, color: rgb(0, 0, 0) });
     page.drawText(form.playerName, { x: 480, y: 730, size: fontSize, font, color: rgb(0, 0, 0) });
-    page.drawText(form.experience, { x: 480, y: 704, size: fontSize, font, color: rgb(0, 0, 0) });
 
     // AC, HP, iniciativa
     page.drawText(form.ac, { x: 355, y: 655, size: fontSizeBig, font, color: rgb(0, 0, 0) });
     page.drawText(form.hp, { x: 415, y: 655, size: fontSizeBig, font, color: rgb(0, 0, 0) });
     page.drawText(form.initiative, { x: 470, y: 655, size: fontSizeBig, font, color: rgb(0, 0, 0) });
+    
+    //Personality traits, ideals, bonds, flaws
+   drawMultilineText(form.personalityTraits, 420, 640, {
+  page,
+  font,
+  fontSize,
+  maxWidth: 160,
+  lineHeight: fontSize + 2,
+  color: rgb(0, 0, 0),
+});
+    drawMultilineText(form.ideals, 420, 570, {
+  page,
+  font,
+  fontSize,
+  maxWidth: 160,
+  lineHeight: fontSize + 2,
+  color: rgb(0, 0, 0),
+});
+    drawMultilineText(form.bonds, 420, 520, { 
+  page,
+  font,
+  fontSize, 
+  maxWidth: 160,
+  lineHeight: fontSize + 2,
+  color: rgb(0, 0, 0),
+});
+    drawMultilineText(form.flaws, 420, 465, {
+  page,
+  font,
+  fontSize,
+  maxWidth: 160,
+  lineHeight: fontSize + 2,
+  color: rgb(0, 0, 0),
+});
+
+
 
     // Atributos
     const attributes = [
@@ -183,7 +263,7 @@ const CharacterForm = () => {
       <div className="bg-white shadow-md rounded-lg p-4 mb-6">
         <h2 className="text-xl font-bold mb-4">Creación de Personaje (D&D 5e)</h2>
 
-        {["name", "race", "class", "level", "alignment", "background", "playerName", "experience", "ac", "hp", "initiative"].map(
+        {["name", "race", "class", "level", "alignment", "background", "playerName", "ac", "hp", "initiative"].map(
           (field) => (
             <div key={field} className="mb-4">
               <label className="block capitalize mb-1">{field}</label>
@@ -247,6 +327,44 @@ const CharacterForm = () => {
             ))}
           </div>
         </div>
+
+        <div className="mb-6">
+          <label className="block mb-1">Rasgos de personalidad:</label>
+          <textarea
+            name="personalityTraits"
+            value={form.personalityTraits || ""}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded h-24"
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block mb-1">Ideales:</label>
+          <textarea
+            name="ideals"
+            value={form.ideals || ""}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded h-24"
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block mb-1">Vínculos:</label>
+          <textarea
+            name="bonds"
+            value={form.bonds || ""}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded h-24"
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block mb-1">Defectos:</label>
+          <textarea
+            name="flaws"
+            value={form.flaws || ""}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded h-24"
+          />
+        </div>
+      
 
         <button
           onClick={savePdf}
