@@ -261,7 +261,7 @@ const CharacterForm = () => {
   return (
     <div className="max-w-3xl mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-4 mb-6">
-        <h2 className="text-xl font-bold mb-4">Creación de Personaje (D&D 5e)</h2>
+        <h2 className="text-xl font-bold mb-4">Demo-Creación de Personaje (D&D 5e)</h2>
 
         {["name", "race", "class", "level", "alignment", "background", "playerName", "ac", "hp", "initiative"].map(
           (field) => (
