@@ -259,24 +259,25 @@ const CharacterForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <div className="bg-white shadow-md rounded-lg p-4 mb-6">
-        <h2 className="text-xl font-bold mb-4">Demo-Creación de Personaje (D&D 5e)</h2>
-
+    <div className="max-w-3xl mx-auto p-2 bg-gray-800 text-white">
+      <h1 className="text-2xl font-bold mb-4 text-center">Hoja de Personaje D&D 5e</h1> 
+      <div className="bg-red-950 shadow-md rounded-lg p-4 mb-6 " >
+       
+ <div className="grid grid-cols-3 gap-2  text-yellow-200">
         {["name", "race", "class", "level", "alignment", "background", "playerName", "ac", "hp", "initiative"].map(
           (field) => (
-            <div key={field} className="mb-4">
+            <div key={field} className="mb-1">
               <label className="block capitalize mb-1">{field}</label>
               <input
                 type="text"
                 name={field}
                 value={form[field] || ""}
                 onChange={handleChange}
-                className="w-full border border-gray-300 px-3 py-2 rounded"
+                className="w-full border border-amber-700 px-3 py-1 rounded text-amber-600"
               />
             </div>
           )
-        )}
+        )}</div>
 
         <div className="grid grid-cols-3 gap-4 mb-6">
           {["str", "dex", "con", "int", "wis", "cha"].map((stat) => (
@@ -294,7 +295,7 @@ const CharacterForm = () => {
           ))}
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 bg-red-800 rounded p-2">
           <label className="block mb-1">Tiradas de salvación competentes:</label>
           <div className="grid grid-cols-3 gap-2">
             {["str", "dex", "con", "int", "wis", "cha"].map((save) => (
@@ -311,9 +312,9 @@ const CharacterForm = () => {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6  bg-red-500">
           <label className="block mb-1">Habilidades competentes:</label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2 p-2">
             {["acrobatics","animalHandling","arcana","athletics","deception","history","insight","intimidation","investigation","medicine","nature","perception","performance","persuasion","religion","sleightOfHand","stealth","survival"].map((skill) => (
               <label key={skill} className="flex items-center">
                 <input
@@ -328,16 +329,16 @@ const CharacterForm = () => {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 bg-red-800 p-4">
           <label className="block mb-1">Rasgos de personalidad:</label>
           <textarea
             name="personalityTraits"
             value={form.personalityTraits || ""}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-3 py-2 rounded h-24"
+            className="w-full border border-gray-300 px-3 py-2 rounded h-24 "
           />
-        </div>
-        <div className="mb-6">
+       
+      
           <label className="block mb-1">Ideales:</label>
           <textarea
             name="ideals"
@@ -345,8 +346,8 @@ const CharacterForm = () => {
             onChange={handleChange}
             className="w-full border border-gray-300 px-3 py-2 rounded h-24"
           />
-        </div>
-        <div className="mb-6">
+       
+       
           <label className="block mb-1">Vínculos:</label>
           <textarea
             name="bonds"
@@ -354,8 +355,8 @@ const CharacterForm = () => {
             onChange={handleChange}
             className="w-full border border-gray-300 px-3 py-2 rounded h-24"
           />
-        </div>
-        <div className="mb-6">
+       
+      
           <label className="block mb-1">Defectos:</label>
           <textarea
             name="flaws"
