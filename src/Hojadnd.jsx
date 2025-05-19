@@ -259,11 +259,19 @@ const CharacterForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-2 bg-gray-800 text-white">
-      <h1 className="text-2xl font-bold mb-4 text-center">Hoja de Personaje D&D 5e</h1> 
+    <div className="bg-gray-900 min-h-screen flex items-center justify-center" > 
+     
+    <div className="max-w-4xl mx-auto p-2 bg-gray-800 text-white">
+      <h1 className="text-2xl font-bold mb-4 text-center">Hoja de Personaje D&D 5e</h1>
+      {/* img ng.png */}
+      <img
+        src="https://victorgabriel2022.github.io/characterdnd5e/ng.png"
+        alt="Logo"
+        className="mx-auto mb-4"    
+      />
       <div className="bg-red-950 shadow-md rounded-lg p-4 mb-6 " >
-       
- <div className="grid grid-cols-3 gap-2  text-yellow-200">
+         
+   <div className="grid grid-cols-3 gap-2  text-yellow-200">
         {["name", "race", "class", "level", "alignment", "background", "playerName", "ac", "hp", "initiative"].map(
           (field) => (
             <div key={field} className="mb-1">
@@ -389,7 +397,7 @@ const CharacterForm = () => {
   </div>
 )}
 
-    </div>
+    </div></div>
   );
 };
 
